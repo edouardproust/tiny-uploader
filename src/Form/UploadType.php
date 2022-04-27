@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: ciryk
+ * Date: 9/12/18
+ * Time: 21:27
+ */
 
 namespace App\Form;
 
@@ -12,11 +18,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UploadType extends FileType
 {
-    private $uploadPath;
+    private $filePath;
 
-    public function __construct($uploadPath)
+    public function __construct($filePath)
     {
-        $this->uploadPath = $uploadPath;
+        $this->filePath = $filePath;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -25,7 +31,7 @@ class UploadType extends FileType
         $builder->addModelTransformer(new CallbackTransformer(
             function (Upload $upload = null) {
                 if ($upload instanceof Upload && $upload->getId()) {
-                    return new File($this->uploadPath . $upload->getFile());
+                    return new File($this->filePath . $upload->getFile());
                 }
             },
             function (UploadedFile $uploadedFile = null) {

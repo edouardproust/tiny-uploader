@@ -2,106 +2,64 @@
 
 namespace App\Entity;
 
-use App\Repository\UploadRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=UploadRepository::class)
+ * @ORM\Entity
+ * @ORM\Table(name="upload")
  */
 class Upload
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string $file
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank(message="Please, upload an upload first.")
      */
     private $file;
 
-    public function getId(): ?int
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $alt;
+
+    public function getId()
     {
         return $this->id;
     }
-
-    public function getFile(): ?string
+    
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
+    
+    public function getFile()
     {
         return $this->file;
     }
-
-    public function setFile(string $file): self
+    
+    public function setFile($file)
     {
-        $this->file = $file;
+        if ($file) {
+            $this->file = $file;
+        }
+    }
 
-        return $this;
+    public function getAlt()
+    {
+        return $this->alt;
+    }
+    
+    public function setAlt($alt)
+    {
+        $this->alt = $alt;
     }
 }
-
-
-// <?php
-
-// namespace App\Entity;
-
-
-// use Doctrine\ORM\Mapping as ORM;
-// use Symfony\Component\Validator\Constraints as Assert;
-
-// /**
-//  * @ORM\Entity
-//  * @ORM\Table(name="image")
-//  */
-// class Image
-// {
-//     /**
-//      * @ORM\Id
-//      * @ORM\GeneratedValue(strategy="AUTO")
-//      * @ORM\Column(type="integer")
-//      */
-//     private $id;
-
-//     /**
-//      * @var string $file
-//      * @ORM\Column(type="string")
-//      *
-//      * @Assert\NotBlank(message="Please, upload an image first.")
-//      * @Assert\File(mimeTypes={ "image/png", "image/jpeg", "image/jpg" })
-//      */
-//     private $file;
-//
-//     /**
-//      * @return mixed
-//      */
-//     public function getId()
-//     {
-//         return $this->id;
-//     }
-
-//     /**
-//      * @param mixed $id
-//      */
-//     public function setId($id): void
-//     {
-//         $this->id = $id;
-//     }
-
-//     /**
-//      * @return string
-//      */
-//     public function getFile()
-//     {
-//         return $this->file;
-//     }
-
-//     /**
-//      * @param string $file
-//      */
-//     public function setFile($file)
-//     {
-//         if ($file) {
-//             $this->file = $file;
-//         }
-//     }
-// }

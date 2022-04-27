@@ -11,7 +11,13 @@
 <br>
 
 <ul>
-    <li>File</li>
+    {% for file in files %}
+        <li>
+            {# <a href="{{ file.file }}">
+            {{ file.file }} #}
+        </a>
+        </li>
+    {% endfor %}
 </ul>
 
 {% endblock %}
