@@ -18,11 +18,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UploadType extends FileType
 {
-    private $filePath;
+    private $uploadsDirectory;
 
-    public function __construct($filePath)
+    public function __construct($uploadsDirectory)
     {
-        $this->filePath = $filePath;
+        $this->uploadsDirectory = $uploadsDirectory;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -31,7 +31,7 @@ class UploadType extends FileType
         $builder->addModelTransformer(new CallbackTransformer(
             function (Upload $upload = null) {
                 if ($upload instanceof Upload && $upload->getId()) {
-                    return new File($this->filePath . $upload->getFile());
+                    return new File($this->uploadsDirectory . $upload->getFile());
                 }
             },
             function (UploadedFile $uploadedFile = null) {

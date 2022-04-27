@@ -3,35 +3,28 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UploadRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="upload")
+ * @ORM\Entity(repositoryClass=UploadRepository::class)
  */
 class Upload
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @var string $file
      * @ORM\Column(type="string")
-     *
-     * @Assert\NotBlank(message="Please, upload an upload first.")
+     * @Assert\NotBlank()
      */
     private $file;
 
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $alt;
-
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -41,25 +34,15 @@ class Upload
         $this->id = $id;
     }
     
-    public function getFile()
+    public function getFile():?string
     {
         return $this->file;
     }
     
-    public function setFile($file)
+    public function setFile(?string $file): void
     {
         if ($file) {
             $this->file = $file;
         }
-    }
-
-    public function getAlt()
-    {
-        return $this->alt;
-    }
-    
-    public function setAlt($alt)
-    {
-        $this->alt = $alt;
     }
 }

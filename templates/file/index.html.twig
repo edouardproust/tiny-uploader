@@ -4,18 +4,28 @@
 
 {% block body %}
 
+<h1>Upload a file</h1>
+
+{% for flashes in app.flashes %}
+    {% for flash in flashes %}
+        <p>{{ flash }}</p>
+    {% endfor %}
+{% endfor %}
+
+
+{{ form_start(form) }}
+{{ form_widget(form) }}
+<input type="submit" value="Upload">
+{{ form_end(form) }}
+
 <h1>Files index</h1>
-
-<div><a href="{{ path('file_new') }}">Upload a file</a></div>
-
-<br>
 
 <ul>
     {% for file in files %}
         <li>
-            {# <a href="{{ file.file }}">
-            {{ file.file }} #}
-        </a>
+            <a href="{{ uploadsPath }}/{{ file.file }}" target="_blank">
+                {{ file.file }}
+            </a>
         </li>
     {% endfor %}
 </ul>

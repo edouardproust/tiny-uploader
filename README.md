@@ -1,6 +1,6 @@
 # tiny uploader
 
-This is the light yet evolutive upload system for Symfony apps.
+The most simple and clean upload system for Symfony apps.
 
 ## Key files:
 

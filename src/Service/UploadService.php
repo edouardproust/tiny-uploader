@@ -13,14 +13,14 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class UploadService
 {
-    private $targetDirectory;
+    private $uploadsDirectory;
     private $slugger;
 
     public function __construct(
-        $targetDirectory,
+        $uploadsDirectory,
         SluggerInterface $slugger
     ) {
-        $this->targetDirectory = $targetDirectory;
+        $this->uploadsDirectory = $uploadsDirectory;
         $this->slugger = $slugger;
     }
 
@@ -31,7 +31,7 @@ class UploadService
         $fileName = substr($this->slugger->slug(strtolower($parts[0])), 0, 30);
         $secureName = $fileName . '.' . uniqid() . '.' . $file->guessExtension();
         // save file
-        $file->move($this->targetDirectory, $secureName);
+        $file->move($this->uploadsDirectory, $secureName);
         return $secureName;
     }
 }
