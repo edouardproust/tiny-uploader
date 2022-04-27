@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Upload a file{% endblock %}
+
+{% block body %}
+
+<h1>Upload a file</h1>
+
+{{ form_start(form) }}
+{{ form_widget(form) }}
+<input type="submit" value="Upload">
+{{ form_end(form) }}
+
+{% endblock %}
